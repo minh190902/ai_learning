@@ -70,9 +70,6 @@ goal_analysis_task:
 curriculum_planning_task:
   description: |-
     # User Input
-    - Assessment results: 
-    {assessment_results}
-
     - Goals: 
     {goal_hierarchy}
 
@@ -135,17 +132,11 @@ schedule_optimization_task:
 planning_task:
   description: |-
     # User Input
-    - Assessment results: 
-    {assessment_results}
-
-    - Goal hierarchy: 
-    {goal_hierarchy}
-
     - Curriculum plan: 
     {curriculum_plan}
 
-    - Optimized schedule: 
-    {optimized_schedule}
+    - schedule plan: 
+    {schedule_plan}
 
     # Guidelines
     1. Integrate all components into a comprehensive, actionable learning plan.

@@ -19,6 +19,6 @@ inputs = {
 }
 
 # Run the planning kickoff
-goal = crew.planning_kickoff(inputs)
-print(goal)
+results = crew.planning_kickoff(inputs)
+print(results)
     

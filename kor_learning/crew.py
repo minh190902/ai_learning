@@ -92,7 +92,8 @@ class AILearningCrew:
                 schedule_optimization_agent],
             tasks=[
                 curriculum_planning_task, 
-                schedule_optimization_task]
+                schedule_optimization_task],
+            verbose=True,
         )
         exec_crew = Crew(
             name="Korean AI Learning Crew",
@@ -111,19 +112,20 @@ class AILearningCrew:
         if not assessment_result:
             raise Exception("Assessment crew failed to complete tasks")
         
-        # planning_inputs = {
-        #     "weekly_study_hours": inputs["weekly_study_hours"],
-        #     "assessment_results": skill_assessment_task.output.raw,
-        #     "goal_hierarchy": goal_analysis_task.output.raw,
-        # }
-        # planning_result = planning_crew.kickoff(inputs=planning_inputs)
-        # if not planning_result:
-        #     raise Exception("Planning crew failed to complete tasks")
+        planning_inputs = {
+            "weekly_study_hours": inputs["weekly_study_hours"],
+            "goal_hierarchy": goal_analysis_task.output.raw,
+        }
+        planning_result = planning_crew.kickoff(inputs=planning_inputs)
+        if not planning_result:
+            raise Exception("Planning crew failed to complete tasks")
         
-        # exec_inputs = {
-        #     "curriculum_plan": curriculum_planning_task.output.raw,
-        #     "schedule_plan": schedule_optimization_task.output.raw,
-        #     "xml_structure": xml_structure_task.output.raw,
-        # }
+        exec_inputs = {
+            "curriculum_plan": curriculum_planning_task.output.raw,
+            "schedule_plan": schedule_optimization_task.output.raw,
+        }
+        exec_result = exec_crew.kickoff(inputs=exec_inputs)
+        if not exec_result:
+            raise Exception("Execution crew failed to complete tasks")
         
-        return goal_analysis_task.output.raw
+        return exec_result

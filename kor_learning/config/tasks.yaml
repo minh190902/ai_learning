@@ -1,0 +1,298 @@
+skill_assessment_task:
+  description: |-
+    # User Input
+    - Self-assessment: {self_assessment}
+
+    # Guidelines
+    1. Analyze all provided data to determine the learner's actual proficiency in Korean, including TOPIK level, vocabulary, grammar, and all four core skills (listening, speaking, reading, writing).
+    2. For each skill:
+       - Assign a score or level
+       - Identify specific strengths and weaknesses
+    3. Assess learning readiness by considering study time, environment, and motivation.
+    4. Construct a skill matrix summarizing scores for each skill.
+    5. Perform a gap analysis between current abilities and target goals.
+    6. Provide recommendations for improvement, including tips for optimizing study conditions.
+
+  expected_output: |-
+    Provide a structured skill profile in the following YAML format:
+    skill_matrix:
+      listening: [score]
+      speaking: [score]
+      reading: [score]
+      writing: [score]
+    vocabulary: [vocab_size/level]
+    grammar: [summary of grammar knowledge]
+    learning_readiness:
+      study_time: [summary]
+      environment: [summary]
+      motivation: [summary]
+    gap_analysis: |
+      [gap_analysis_text]
+    recommendations:
+      - [recommendation_1]
+      - [recommendation_2]
+      - ...
+
+goal_analysis_task:
+  description: |-
+    # User Input
+    - Self-assessment: {self_assessment}
+    - User goals: {user_goals}
+    - Period: {period}
+    - Weekly study hours: {weekly_study_hours}
+
+    # Guidelines
+    1. Analyze each user goal using SMART criteria (Specific, Measurable, Achievable, Relevant, Time-bound).
+    2. Assess the feasibility of each goal based on the user's self-assessment, available period, and weekly study hours. Clearly state if the goal is realistic or needs adjustment.
+    3. Structure goals into a hierarchy: identify main goals and break them down into actionable sub-goals.
+    4. Assign a priority weight (max 1.0) to each main goal, based on importance and urgency.
+    5. For each goal, provide a short, specific description and a feasibility note and sub goal.
+    6. If goals are unclear or unrealistic, provide feedback and suggestions for clarification or adjustment.
+
+  expected_output: |-
+    Provide a structured goal hierarchy in the following YAML format:
+    goal_hierarchy:
+      - goal: [main_goal_1]
+        priority: [weight] (max 1.0)
+        feasibility: [feasibility_note]
+        sub_goals:
+          - [sub_goal_1]
+          - [sub_goal_2]
+      - goal: [main_goal_2]
+        priority: [weight] (max 1.0)
+        feasibility: [feasibility_note]
+        sub_goals:
+          - [sub_goal_1]
+          - [sub_goal_2]
+    feedback: |
+      [feedback_text]
+
+curriculum_planning_task:
+  description: |-
+    # User Input
+    - Assessment results: 
+    {assessment_results}
+
+    - Goals: 
+    {goal_hierarchy}
+
+    # Guidelines
+    1. Design a personalized curriculum based on assessment results and user goals.
+    2. Sequence topics and skills for optimal learning progression.
+    3. Map dependencies between topics and skills.
+    4. Ensure the curriculum is achievable and motivating within the given constraints.
+
+  expected_output: |-
+    Provide a detailed curriculum plan in the following YAML format:
+    curriculum:
+      - topic: [topic_1]
+        sequence: [order]
+        dependencies:
+          - [dependency_1]
+          - [dependency_2]
+      - topic: [topic_2]
+        sequence: [order]
+        dependencies:
+          - [dependency_1]
+    milestones:
+      - [milestone_1]
+      - [milestone_2]
+
+schedule_optimization_task:
+  description: |-
+    # User Input
+    - Available time: {weekly_study_hours}
+    - Curriculum: Get from curriculum planning task
+
+    # Guidelines
+    1. Analyze available study time (weekly).
+    2. Integrate Pomodoro and spaced repetition techniques into the schedule.
+    3. Balance cognitive load across sessions and days.
+    4. Adjust the schedule for optimal retention and motivation.
+
+  expected_output: |-
+    Provide an optimized study schedule in the following YAML format:
+    schedule:
+      daily:
+        - day: [day_of_week]
+          time: [duration]
+          focus: [focus_area]
+          activities:
+            - [activity_1]
+            - [activity_2]
+      weekly_summary:
+        - [summary_point_1]
+        - [summary_point_2]
+    pomodoro_plan:
+      - [pomodoro_block_1]
+      - [pomodoro_block_2]
+    spaced_repetition_plan:
+      - [spaced_repetition_block_1]
+      - [spaced_repetition_block_2]
+    cognitive_load_notes: |
+      [notes]
+
+planning_task:
+  description: |-
+    # User Input
+    - Assessment results: 
+    {assessment_results}
+
+    - Goal hierarchy: 
+    {goal_hierarchy}
+
+    - Curriculum plan: 
+    {curriculum_plan}
+
+    - Optimized schedule: 
+    {optimized_schedule}
+
+    # Guidelines
+    1. Integrate all components into a comprehensive, actionable learning plan.
+    2. Ensure the plan includes the following sections, each clearly structured:
+       - title: The overall title of the study plan.
+       - overview: General description of the plan, goals, duration, and target audience.
+       - weekly_plan: A list of days, each with name, time, focus, and activities.
+       - learning_strategies: For each skill area (listening, reading, writing, speaking, vocabulary, grammar), provide a list of strategies.
+       - recommended_resources: For each resource type (textbooks, online_resources, apps, practice_tests), provide a list of recommended items.
+       - timeline: A list of phases, each with name, objective, and a list of plan items.
+       - tips: A list of actionable tips for success.
+    3. Each section must be output as a top-level YAML key, with all sub-items as lists or nested keys as appropriate.
+    4. Ensure all content is clear, actionable, and ready for conversion to XML.
+
+  expected_output: |-
+    Provide the complete learning plan in the following YAML structure:
+    title: plan_title
+    overview: |
+      [overview_text]
+    weekly_plan:
+      - name: [day_of_week]
+        time: [duration]
+        focus: [focus_area]
+        activity:
+          - [activity_1]
+          - [activity_2]
+      # ...repeat for each day...
+    learning_strategies:
+      listening:
+        - [strategy_1]
+        - [strategy_2]
+      reading:
+        - [strategy_1]
+      writing:
+        - [strategy_1]
+      speaking:
+        - [strategy_1]
+      vocabulary:
+        - [strategy_1]
+      grammar:
+        - [strategy_1]
+    recommended_resources:
+      textbooks:
+        - [textbook_1]
+        - [textbook_2]
+      online_resources:
+        - [resource_1]
+      apps:
+        - [app_1]
+      practice_tests:
+        - [test_1]
+    timeline:
+      - name: [phase_name]
+        objective: [objective]
+        plan:
+          - [plan_item_1]
+          - [plan_item_2]
+      # ...repeat for each phase...
+    tips:
+      - [tip_1]
+      - [tip_2]
+    # All sections must be present and clearly structured as shown above.
+
+xml_structure_task:
+  description: |-
+    # User Input
+    - Comprehensive plan data: get from planning task
+
+    # Guidelines
+    1. Convert the learning plan into a well-structured XML format following the defined schema.
+    2. Validate the XML for consistency and completeness.
+    3. Generate additional UI-friendly representations (e.g., parsed components or summaries) as needed.
+    4. Ensure the output is ready for integration into user interfaces.
+
+  expected_output: |-
+    You MUST output only a single, well-formed XML document, strictly following this structure:
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <study_plan>
+      <title>...</title>
+      <overview>...</overview>
+      <weekly_plan>
+        <day name="..." time="...">
+          <focus>...</focus>
+          <activity>
+            <item>...</item>
+            ...
+          </activity>
+        </day>
+        ...
+      </weekly_plan>
+      <learning_strategies>
+        <listening>
+          <item>...</item>
+          ...
+        </listening>
+        <reading>
+          <item>...</item>
+          ...
+        </reading>
+        <writing>
+          <item>...</item>
+          ...
+        </writing>
+        <speaking>
+          <item>...</item>
+          ...
+        </speaking>
+        <vocabulary>
+          <item>...</item>
+          ...
+        </vocabulary>
+        <grammar>
+          <item>...</item>
+          ...
+        </grammar>
+      </learning_strategies>
+      <recommended_resources>
+        <textbooks>
+          <item>...</item>
+          ...
+        </textbooks>
+        <online_resources>
+          <item>...</item>
+          ...
+        </online_resources>
+        <apps>
+          <item>...</item>
+          ...
+        </apps>
+        <practice_tests>
+          <item>...</item>
+          ...
+        </practice_tests>
+      </recommended_resources>
+      <timeline>
+        <phase name="...">
+          <objective>...</objective>
+          <plan>
+            <item>...</item>
+            ...
+          </plan>
+        </phase>
+        ...
+      </timeline>
+      <tips>
+        <item>...</item>
+        ...
+      </tips>
+    </study_plan>
+    All content must be inside tags, and all tags must be correctly nested and closed. Do not add any explanations or text outside the XML.
